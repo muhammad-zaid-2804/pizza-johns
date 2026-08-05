@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pizza John's | Pakistani Fast Food</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- ===== MOBILE VIEW CSS ADD KIYA HAI - DESKTOP WESA HI RAHEGA ===== -->
+    <style>
+    @media (max-width: 768px) {
+        /* Header mobile */
+        header {
+            flex-direction: column;
+            padding: 10px;
+        }
+        .logo-area {
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        nav a {
+            font-size: 14px;
+        }
+        #orderNowBtn {
+            width: 100%;
+            font-size: 18px !important;
+            padding: 12px 20px !important;
+            margin-top: 10px;
+        }
+
+        /* Hero section */
+        .hero-content h1 {
+            font-size: 28px;
+        }
+        .hero-buttons {
+            flex-direction: column;
+            gap: 10px;
+        }
+        .hero-buttons .primary-btn {
+            width: 90%;
+            margin: auto;
+        }
+
+        /* Food cards mobile */
+        .food-container {
+            gap: 15px !important;
+        }
+        .food-card {
+            width: 90% !important;
+            margin: auto;
+        }
+        .food-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        /* Pizza list mobile */
+        #pizzas > div, #specialpizzas > div, #bogo > div, #train > div, #fries > div {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 8px;
+        }
+        #pizzas button, #specialpizzas button {
+            font-size: 12px;
+            padding: 6px 10px;
+        }
+
+        /* About section */
+        .about-section {
+            flex-direction: column;
+            text-align: center;
+        }
+        .about-image img {
+            width: 200px;
+        }
+
+        /* Contact section */
+        .contact-container {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+/* Pizza buttons seedhay karne ke liye */
+        #pizzas > div > span, #specialpizzas > div > span {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+        #pizzas > div > span button, #specialpizzas > div > span button {
+            min-width: 60px;
+        }
+
+       /* Force Add button right side */
+        #bogo > div, #train > div, #fries > div {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+        }
+
+    }
+    /* Deals Horizontal Scroll Fix */
+#deals, #superdeals {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 10px 0;
+  scroll-snap-type: x mandatory;
+  justify-content: flex-start;
+  align-items: stretch; /* sab cards barabar */
+  -webkit-overflow-scrolling: touch; /* mobile smooth */
+}
+
+#deals > div, #superdeals > div {
+  flex: 0 0 85%;       /* mobile pe 85% screen */
+  max-width: 260px;    /* laptop pe max 260px */
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 12px;
+}
+
+#deals img, #superdeals img {
+  width: 100%;
+  height: 180px;        /* sab images same height */
+  object-fit: cover;    /* image crop ho kar fit */
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+  
+  </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+   <header>
+  <div class="logo-area">
+    <img src="images/logo.png" alt="Pizza John's logo" width="80">
+    <h1>PIZZA JOHN'S</h1>
+  </div>
+
+  <nav>
+  <a href="#">Home</a>
+  <a href="#menu">Menu</a>
+  <a href="myorders.html">My Orders</a>
+  <a href="#contact">Contact</a>
+</nav>
+  <!-- BIG ORDER NOW BUTTON -->
+         <div style="text-align: center; margin: 0;">
+      
+         <button id="orderNowBtn" class="primary-btn" style="font-size:22px;padding:15px 40px;">
+                🛒 ORDER NOW (<span id="cartCount">0</span> Items)
+            </button>
+        </div>
+
+</header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+
+        <div class="hero-content">
+
+            <p class="small-title">
+                FRESH • HOT • DELICIOUS
+            </p>
+
+            <h1>
+                Taste the <span>Real Flavor</span>
+            </h1>
+
+            <p>
+                Fresh pizzas, burgers, shawarmas, fries & fried chicken await!
+
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#menu" class="primary-btn">
+                    Explore Menu
+                </a>
+
+                    <a href="myorders.html" class="primary-btn">
+              Track Your Order
+                </a>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+
+        <div class="section-title">
+
+            <p>OUR SPECIAL MENU</p>
+
+            <h2>
+                Delicious Food for Everyone
+            </h2>
+
+            <span>
+                Fresh ingredients, amazing taste and affordable prices.
+            </span>
+
+        </div>
+
+      
+
+        <div class="food-container">
+
+            <!-- 1. DEALS SECTION - 13 Items in Cards -->
+            <h2 style="width:100%; text-align:center; margin:30px 0 10px;">🔥 Deals</h2>
+<div id="deals" class="food-container" style="width:100%; display:flex; flex-wrap:nowrap; gap:16px; overflow-x:auto; padding:10px 0; align-items:stretch;"></div>
+             <!-- 4. SUPER DEALS - 8 Items in Cards with Add to Cart -->
+            <h2 style="width:100%; text-align:center; margin:40px 0 10px;">💥 Super Deals</h2>
+<div id="superdeals" class="food-container" style="width:100%; display:flex; flex-wrap:nowrap; gap:16px; overflow-x:auto; padding:10px 0; align-items:stretch;"></div>            <!-- 2.  -->
+            <h2 style="width:100%; text-align:center; margin:40px 0 10px;">🎁 Burger, Paratha rolls, Shawarma</h2>
+            <div id="bogo" style="width:100%; max-width:800px; margin:auto;">
+            <!--  -->
+            </div>
+
+            <!-- 3. PIZZAS -->
+            <h2 style="width:100%; text-align:center; margin:40px 0 10px;">🍕 Pizzas</h2>
+            <div id="pizzas" style="width:100%; max-width:800px; margin:auto;">
+            <!-- pizza -->
+            </div>
+
+             <!-- 3. spcial pizza -->
+            <h2 style="width:100%; text-align:center; margin:40px 0 10px;">🍕 Special Crust And Creamy flavors</h2>
+            <div
+             id="specialpizzas" style="width:100%; max-width:800px; margin:auto;">
+            </div>
+
+             <!-- 2. train -->
+            <h2 style="width:100%; text-align:center; margin:40px 0 10px;">🎁 Train Pizza Special Offer</h2>
+            <div id="train" style="width:100%; max-width:800px; margin:auto;">
+            <!-- train -->
+            </div>
+             <!--fries-->
+            <h2 style="width:100%; text-align:center; margin:40px 0 10px;">Fried Chicken and Fries</h2>
+            <div id="fries" style="width:100%; max-width:800px; margin:auto;">
+            
+            </div>
+
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+
+        <div class="about-image">
+
+            <img
+                src="images/logo.png"
+                alt="Cafe Interior"
+            >
+
+    </div>
+
+        <div class="about-content">
+
+            <p class="small-title">
+                ABOUT PIZZA JOHN'S
+            </p>
+
+            <h2>
+                Good Food. Great Taste.
+            </h2>
+
+            <p>
+                Pizza John's is your go-to destination for fresh,
+                 flavorful fast food. Every meal is prepared with premium ingredients,
+                  bold flavors, and served fresh every day.
+            </p>
+
+            <p>
+                From cheesy Pizzas and juicy Burgers to loaded Shawarmas, crispy Fried Chicken,
+                 tasty Paratha Rolls, and golden Fries,
+                 there's something delicious for everyone.
+            </p>
+
+            <a href="#contact" class="primary-btn">
+                Visit Us
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+
+        <div class="section-title">
+
+            <p>GET IN TOUCH</p>
+
+            <h2>
+                Visit Pizza John's
+            </h2>
+
+            <span>
+                Come hungry. Leave happy.
+            </span>
+
+        </div>
+
+        <div class="contact-container">
+
+            <div class="contact-box">
+
+                <h3>📍 Location</h3>
+
+                <p>
+                    Sakhi Tower Opposite to syed children hospital shamsi road mardan
+                </p>
+
+            </div>
+
+            <div class="contact-box">
+
+                <h3>📞 Phone</h3>
+
+                <p>
+                    +92 312 5551503
+                </p>
+
+            </div>
+
+            <div class="contact-box">
+
+                <h3>🕒 Opening Hours</h3>
+
+                <p>
+                    Monday - Sunday<br>
+                    10:30 PM - 12:30 AM
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+
+        <h3>
+            🌶️ Pizza John's
+        </h3>
+
+        <p>
+            Delicious Pizzas. Amazing memories.
+        </p>
+
+        <p class="copyright">
+            © 2026 Pizza John's. All Rights Reserved.
+        </p>
+
+    </footer>
+
+<script>
+// CART SYSTEM
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+function addToCart(name, price) {
+    cart.push({name, price});
+    localStorage.setItem('cart', JSON.stringify(cart));
+    document.getElementById('cartCount').innerText = cart.length;
+    alert(name + " added to cart!");
+}
+
+// ORDER NOW BUTTON
+document.getElementById('orderNowBtn').onclick = function() {
+    if(cart.length === 0) {
+        alert("Cart is empty!");
+        return;
+    }
+    // Send cart to order.html via localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+    window.location.href = "order.html";
+}
+// Menu me scroll karte waqt button show karna
+window.addEventListener('scroll', function() {
+    const menuSection = document.querySelector('.menu-section');
+    const orderBtn = document.getElementById('orderNowBtn');
+    
+    if (!menuSection || !orderBtn) return;
+    
+    const menuTop = menuSection.offsetTop;
+    const menuBottom = menuTop + menuSection.offsetHeight;
+    const scrollPos = window.scrollY + 100; // 100px header ke liye
+    
+    // Agar scroll menu section ke andar hai to button dikhao
+    if (scrollPos >= menuTop && scrollPos <= menuBottom) {
+        orderBtn.style.display = 'block';
+    } else {
+        orderBtn.style.display = 'none';
+    }
+});
+
+// LOAD DATA FOR NEW SECTIONS
+const deals = [
+  {name:"Clasic Deal 1", price: 1500, desc:"1 Small Pizza + 2 Zinger Burger + 1 Reg Fries + 1 Half Ltr Drink", img:"images/deal1.png"},
+  {name:"Clasic Deal 2", price: 2250, desc:"1 Medium Pizza + 3 Zinger Burger + 1 Large Fries + 1 Ltr Drink ", img:"images/deal2.png"},
+  {name:"Clasic Deal 3", price: 2250, desc:"1 Large Pizza + 2 Zinger Burger + 1 Large Fries + 1 Ltr Drink  ", img:"images/deal3.png"},
+  {name:"Fried Deal 4", price: 850, desc:"5 Pcs Hot Wings + 1 Zinger Burger + 1 Reg Fries + 1 Reg Drink"  , img:"images/deal4.png"},
+  {name:"Fried Deal 5", price: 1450, desc:"10 Pcs Nuggets + 10 Pcs Hot Wings + 1 Medium Fries + 1 Ltr Drink", img:"images/deal5.png"},
+  {name:"Fried Deal 6", price: 1600, desc:" Full chicken Broast + 1 Reg fries                              ", img:"images/deal6.png"},
+  {name:"Deal 7", price: 750, desc:"1 Zinger Burger + 1 Chicken Pc + 1 Reg Fries + 1 Reg Drink             ", img:"images/deal7.png"},
+  {name:"Deal 8", price: 800, desc:"1 Small Pizza B.B.Q + 1 Reg Fries + 1 Ltr Drink                        ", img:"images/deal8.png"},
+  {name:"Deal 9", price: 2800, desc:"1 Family Pizza Tikka + 3 Zinger Burger + 1 Ltr Drink                  ", img:"images/deal9.png"},
+  {name:"Deal 10", price: 1850, desc:"1 Crown Crust Large Pizza + 1 Large Fries + 1 Ltr Drink             ", img:"images/deal10.png"},
+  {name:"Deal 11", price: 1800, desc:"5 Zinger Burger + 1  Ltr Drink                                      ", img:"images/deal11.png"},
+  {name:"Deal 12", price: 550, desc:"1 Zinger Burger + 1 Reg Fries + 1 Reg Drink                          ", img:"images/deal12.png"},
+  {name:"Deal 13", price: 1950, desc:"2 Small Pizza + 2 Zinger Burger + 1 Ltr Drink                       ", img:"images/deal13.png"},
+  {name:"Deal 14", price: 1400, desc:"1 Large Pizza + 1 Ltr Drink                                         ", img:"images/deal14.png"},
+  {name:"Deal 15", price: 1500, desc:"2 Zinger Burger + 10 Pcs Hot Wings + 1 Ltr Drink                    ", img:"images/deal15.png"},
+  {name:"Deal 16", price: 2700, desc:"1 Large Pizza  + 4 Zinger Burgers + 1 Ltr Drink                     ", img:"images/deal16.png"},
+  {name:"Deal 17", price: 2050, desc:"1 Large Pizza + 2 Zinger Burger + 1 Ltr Drink                       ", img:"images/deal17.png"},
+  {name:"Deal 18", price: 1900, desc:"1 Large Labnani Pizza + 1 Ltr Drink                                 ", img:"images/deal18.png"},
+  {name:"Deal 19", price: 1100, desc:"2 Double Decker Burger + 2 Reg Drink                         ", img:"images/deal19.png"},
+  {name:"Deal 20", price: 600, desc:"1 Behari Roll with White Sause + 1 Reg Drink                          ", img:"images/deal20.png"},
+  {name:"Deal 21", price: 2000, desc:"1 Large Pizza + 10 Pcs Hot Wings + 1 Ltr Drink                       ", img:"images/deal21.png"},
+  {name:"Deal 22", price: 1500, desc:"20 Pcs Hot Wings + 1 Ltr Drink                                      ", img:"images/deal22.png"},
+ 
+];
+
+const superdeals =[
+  {name:"Super Deal 1", price: 1799, desc:"3 Chicken Tikka Small Pizza + 1 Ltr Drink free", img:"images/superdeal1.png"},
+  {name:"Super Deal 2", price: 2799, desc:"3 Chicken Tikka Medium Pizza + 1 Ltr Drink free", img:"images/superdeal2.png"},
+  {name:"Super Deal 3", price: 3799, desc:"3 Chicken Tikka Large Pizza + 1 Ltr Drink free", img:"images/superdeal3.png"},
+  {name:"Super Deal 4", price: 4799, desc:"3 Chicken Tikka Family Pizza + 1 Ltr Drink free", img:"images/superdeal4.png"},
+  
+];
+
+const bogo = [
+  {name:"Zinger Burger", price: 350, desc:"Buy 1 Zinger Get 1 Free", img:"images/bogo1.jpg"},
+  {name:"Zinger Cheese Burger", price: 450, desc:"Buy 1 Shawarma Get 1 Free", img:"images/bogo.png"},
+  {name:"Chicken Burger", price: 300, desc:"Buy 1 Beef Burger Get 1 Free", img:"images/bogo3.jpg"},
+  {name:"Chicken Cheese Burger", price: 350, desc:"Buy 1 Plate Get 1 Plate Free", img:"images/bogo4.jpg"},
+  {name:"Tower Burger", price: 450, desc:"Buy 1 Get 1 Free", img:"images/bogo5.jpg"},
+  {name:"Double Decker Burger", price: 500, desc:"Buy 1 Pasta Get 1 Free", img:"images/bogo6.jpg"},
+  {name:"Grill Tower Burger", price: 600, desc:"Buy 1 Get 1 Free", img:"images/bogo7.jpg"},
+  {name:"Zinger Paratha", price: 350, desc:"Buy 6 Wings Get 6 Free", img:"images/bogo8.jpg"},
+  {name:"Zinger Cheese Paratha", price: 380, desc:"Buy 1 Plate Get 1 Free", img:"images/bogo9.jpg"},
+  {name:"Chicken Paratha", price: 300, desc:"Buy 1 Plate Get 1 Free", img:"images/bogo10.jpg"},
+  {name:"Chicken Cheese Paratha", price: 350, desc:"Buy 1 Small Pizza Get 1 Free", img:"images/bogo11.jpg"},
+  {name:"Zinger Shawarma", price: 300, desc:"Buy 1 Roll Get 1 Free", img:"images/bogo12.jpg"},
+  {name:"Zinger Cheese Shawarma", price: 350, desc:"Buy 1 Medium Get 1 Free", img:"images/bogo13.jpg"},
+  {name:"Chicken Shawarma", price: 250, desc:"Buy 1 Plate Get 1 Free", img:"images/bogo14.jpg"},
+  {name:"Chicken Cheese Shawarma", price: 300, desc:"Buy 1 Plate Get 1 Free", img:"images/bogo15.jpg"},
+  {name:"Vegetable Shawarma", price: 200, desc:"Buy 1 Get 1 Free", img:"images/bogo16.jpg"},
+ 
+];
+
+const pizzas = [
+  {name:"Chicken Tikka B.B.Q Pizza", price: {S: 650, M: 1000, L: 1300, F: 1700}, desc:"Cheese, Tomato, Basil", img:"images/pizza1.jpg"},
+  {name:"Chicken Fajita Pizza", price: {S: 650, M: 1000, L: 1300, F: 1700}, desc:"Chicken Fajita, Capsicum, Onion", img:"images/pizza2.jpg"},
+  {name:"Chicken Supreme Pizza", price: {S: 650, M: 1000, L: 1300, F: 1700}, desc:"BBQ Chicken, Onion, Cheese", img:"images/pizza3.jpg"},
+  {name:"Tanduri Pizza", price: {S: 650, M: 1000, L: 1300, F: 1700}, desc:"Mozzarella, Cheddar, Parmesan", img:"images/pizza4.jpg"},
+  {name:"Chicken Achar Special Pizza", price: {S: 650, M: 1300, L: 989, F: 1700}, desc:"Pepperoni, Cheese, Tomato Sauce", img:"images/pizza5.jpg"},
+  {name:"Chicken Lover Pizza", price: {S: 650, M: 1000, L: 1300, F: 1700}, desc:"Mushroom, Capsicum, Olive, Corn", img:"images/pizza6.jpg"},
+  {name:"Vegetarian Pizza", price: {S: 550, M: 950, L: 1250, F: 1700}, desc:"Chicken Tikka, Onion, Green Chilli", img:"images/pizza7.jpg"},
+  {name:"Afghani Pizza", price: {S: 650, M: 1000, L: 1300, F: 1700}, desc:"Malai Boti, Cheese, Capsicum", img:"images/pizza8.jpg"},
+  {name:"Pepperoni Pizza", price: {S: 650, M: 1000, L: 1300, F: 1700}, desc:"Spicy Chicken, Jalapeno, Onion", img:"images/pizza9.jpg"},
+  {name:" Cheese Gold Pizza", price: {S: 650, M: 1000, L: 1300, F: 1700}, desc:"Fish, Prawn, Cheese", img:"images/pizza10.jpg"},
+  {name:"Hot & Spicy Pizza", price: {S: 650, M: 1000, L: 1300, F: 1700}, desc:"Afghani Chicken, Cream Sauce", img:"images/pizza11.jpg"},
+  {name:"Grilled Pizza", price: {S: 650, M: 1000, L: 1300, F: 1700}, desc:"Chicken, Green Chilli, Spicy Sauce", img:"images/pizza12.jpg"},
+]
+
+const specialpizzas = [
+  {name:"Double Crust Pizza", price: {S: 750, M: 1200, L: 1500, F: 1900}, desc:"Cheese, Tomato, Basil", img:"images/pizza1.jpg"},
+  {name:"Crown Crust Pizza", price: {S: 750, M: 1200, L: 1500, F: 1900}, desc:"Chicken Fajita, Capsicum, Onion", img:"images/pizza2.jpg"},
+  {name:"Donner Pizza", price: {S: 750, M: 1200, L: 1500, F: 1900}, desc:"BBQ Chicken, Onion, Cheese", img:"images/pizza3.jpg"},
+  {name:"Chicken Crust Pizza", price: {S: 800, M: 1300, L: 1600, F: 2000}, desc:"Mozzarella, Cheddar, Parmesan", img:"images/pizza4.jpg"},
+  {name:"Mint Special Pizza", price: {S: 750, M: 1200, L: 1500, F: 1900}, desc:"Pepperoni, Cheese, Tomato Sauce", img:"images/pizza5.jpg"},
+  {name:"Stuff Kabab Pizza", price: {S: 800, M: 1300, L: 1600, F: 2000}, desc:"Mushroom, Capsicum, Olive, Corn", img:"images/pizza6.jpg"},
+  {name:"Labnani Pizza", price: {S: 850, M: 1400, L: 1800, F: 2400}, desc:"Chicken Tikka, Onion, Green Chilli", img:"images/pizza7.jpg"},
+]
+
+const train = [
+  {name:"Train Pizza", price: 2999, desc:"Buy 1 Zinger Get 1 Free", img:"images/bogo1.jpg"},
+  {name:"21 inch Pizza with 1 Ltr Drink Free", price: 2099, desc:"Buy 1 Shawarma Get 1 Free", img:"images/bogo.png"},
+];
+
+const fries = [
+  {name:"2 Pieces Chicken", price: 500, desc:"Buy 1 Zinger Get 1 Free", img:"images/bogo1.jpg"},
+  {name:"10 Pieces Hot Wings", price: 700, desc:"Buy 1 Shawarma Get 1 Free", img:"images/bogo.png"},
+  {name:"10 Pieces Hot Shots", price: 700, desc:"Buy 1 Shawarma Get 1 Free", img:"images/bogo.png"},
+  {name:"10 Pieces Nuggets", price: 700, desc:"Buy 1 Shawarma Get 1 Free", img:"images/bogo.png"},
+  {name:"Regular French Fries", price: 150, desc:"Buy 1 Shawarma Get 1 Free", img:"images/bogo.png"},
+  {name:"Large French Fries", price: 250, desc:"Buy 1 Shawarma Get 1 Free", img:"images/bogo.png"},
+  {name:"Loaded Fries", price: 500, desc:"Buy 1 Shawarma Get 1 Free", img:"images/bogo.png"},
+];
+
+function loadSections() {
+    // Deals
+     document.getElementById('deals').innerHTML = deals.map(d=>`
+        <div class="food-card">
+            <img src="${d.img}" alt="${d.name}">
+            <div class="food-info">
+                <h3>${d.name}</h3>
+                <p>${d.desc}</p>
+                <div class="food-bottom">
+                    <strong>Rs. ${d.price}</strong>
+                    <button class="order-btn" onclick="addToCart('${d.name}', ${d.price})">Add</button>
+                </div>
+            </div>
+        </div>
+`).join('');
+    // BOGO List
+    document.getElementById('bogo').innerHTML = bogo.map(b=>`
+        <div style="display:flex; justify-content:space-between; padding:12px; border-bottom:1px solid #ddd;">
+            <span>${b.name}</span>
+            <span>Rs. ${b.price} <button class="order-btn" onclick="addToCart('${b.name}', ${b.price})">Add</button></span>
+        </div>
+`).join('');
+    // Pizzas List
+    document.getElementById('pizzas').innerHTML = pizzas.map(p=>`
+        <div style="display:flex; justify-content:space-between; padding:12px; border-bottom:1px solid #ddd; flex-wrap:wrap;">
+            <span style="width:100%; font-weight:bold;">${p.name}</span>
+            <span>Small: Rs.${p.price.S} <button onclick="addToCart('${p.name} Small', ${p.price.S})">Add</button></span>
+            <span>Medium: Rs.${p.price.M} <button onclick="addToCart('${p.name} Medium', ${p.price.M})">Add</button></span>
+              <span>Large: Rs.${p.price.L} <button onclick="addToCart('${p.name} Large', ${p.price.L})">Add</button></span>
+                <span>Family: Rs.${p.price.F} <button onclick="addToCart('${p.name} Family', ${p.price.F})">Add</button></span>
+        </div>
+    `).join('');
+
+    // Super Deals
+   document.getElementById('superdeals').innerHTML = superdeals.map(d=>`
+        <div class="food-card">
+            <img src="${d.img}" alt="${d.name}">
+            <div class="food-info">
+                <h3>${d.name}</h3>
+                <p>${d.desc}</p>
+                <div class="food-bottom">
+                    <strong>Rs. ${d.price}</strong>
+                    <button class="order-btn" onclick="addToCart('${d.name}', ${d.price})">Add</button>
+                </div>
+            </div>
+        </div>
+`).join('');
+
+ // superPizzas List
+    document.getElementById('specialpizzas').innerHTML = specialpizzas.map(p=>`
+        <div style="display:flex; justify-content:space-between; padding:12px; border-bottom:1px solid #ddd; flex-wrap:wrap;">
+            <span style="width:100%; font-weight:bold;">${p.name}</span>
+            <span>Small: Rs.${p.price.S} <button onclick="addToCart('${p.name} Small', ${p.price.S})">Add</button></span>
+            <span>Medium: Rs.${p.price.M} <button onclick="addToCart('${p.name} Medium', ${p.price.M})">Add</button></span>
+              <span>Large: Rs.${p.price.L} <button onclick="addToCart('${p.name} Large', ${p.price.L})">Add</button></span>
+                <span>Family: Rs.${p.price.F} <button onclick="addToCart('${p.name} Family', ${p.price.F})">Add</button></span>
+        </div>
+    `).join('');
+
+     // train List
+    document.getElementById('train').innerHTML = train.map(b=>`
+        <div style="display:flex; justify-content:space-between; padding:12px; border-bottom:1px solid #ddd;">
+            <span>${b.name}</span>
+            <span>Rs. ${b.price} <button class="order-btn" onclick="addToCart('${b.name}', ${b.price})">Add</button></span>
+        </div>
+     `).join('');
+
+ // fries List
+    document.getElementById('fries').innerHTML = fries.map(b=>`
+        <div style="display:flex; justify-content:space-between; padding:12px; border-bottom:1px solid #ddd;">
+            <span>${b.name}</span>
+            <span>Rs. ${b.price} <button class="order-btn" onclick="addToCart('${b.name}', ${b.price})">Add</button></span>
+        </div>
+     `).join('');
+
+    document.getElementById('cartCount').innerText = cart.length;
+}
+
+loadSections();
+</script>
+
+</body>
+</html>
