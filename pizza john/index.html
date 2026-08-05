@@ -377,6 +377,27 @@
 // CART SYSTEM
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+function addToCart(name, price) {
+    // 1. Check if item already in cart
+    let existing = cart.find(item => item.name === name);
+    
+    if(existing){
+        existing.qty += 1; // increase qty
+    } else {
+        cart.push({name: name, price: price, qty: 1}); // add new with qty
+    }
+
+    // 2. Save to localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // 3. Update cart count - now counts total items not just types
+    let totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+    document.getElementById('cartCount').innerText = totalItems;
+
+    // 4. Show toast instead of alert
+    showToast(name + " added to cart!");
+}
+
 // Add this toast function once in your JS
 function showToast(msg){
   let t = document.getElementById("toast");
@@ -390,7 +411,6 @@ function showToast(msg){
   t.style.display = "block";
   setTimeout(()=> t.style.display = "none", 1200);
 }
-
 
 // ORDER NOW BUTTON
 document.getElementById('orderNowBtn').onclick = function() {
