@@ -377,12 +377,20 @@
 // CART SYSTEM
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-function addToCart(name, price) {
-    cart.push({name, price});
-    localStorage.setItem('cart', JSON.stringify(cart));
-    document.getElementById('cartCount').innerText = cart.length;
-    alert(name + " added to cart!");
+// Add this toast function once in your JS
+function showToast(msg){
+  let t = document.getElementById("toast");
+  if(!t){
+    t = document.createElement("div");
+    t.id = "toast";
+    t.style.cssText = "position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#22c55e;color:white;padding:12px 24px;border-radius:10px;display:none;z-index:9999;font-weight:500";
+    document.body.appendChild(t);
+  }
+  t.innerText = msg;
+  t.style.display = "block";
+  setTimeout(()=> t.style.display = "none", 1200);
 }
+
 
 // ORDER NOW BUTTON
 document.getElementById('orderNowBtn').onclick = function() {
