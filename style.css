@@ -1,0 +1,343 @@
+/* ========== GENERAL ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #fff8f0;
+    color: #333;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ========== HEADER ========== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 8%;
+    background: white;
+    color: black;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-area h1 {
+    font-size: 22px;
+    letter-spacing: 1px;
+}
+
+nav a {
+    margin-left: 20px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #ffcc00;
+}
+
+/* ========== BUTTONS ========== */
+
+    .primary-btn {
+    background: #d62828;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+
+    /* YE 4 LINES NAYI ADD KARO */
+   .menu-order-wrapper{
+  width: 100px;
+   text-align: center;
+     padding: 20px 0;
+   background: #fff;
+  
+   
+  
+    display: block;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+   }
+
+}
+
+.primary-btn:hover {
+    background: #a61e1e;
+    transform: scale(1.05);
+}
+
+.order-btn {
+    background: #ffcc00;
+    color: #333;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    /*ye 3 lines scroll order button k liy hy*/
+    position: sticky;
+    z-index: 999;
+    width: 100%;
+}
+
+.order-btn:hover {
+    background: #e6b800;
+}
+
+/* ========== HERO ========== */
+.hero {
+    background: url('images/backimage1.png') no-repeat center/cover;
+    color: hsl(0, 0%, 99%);
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero .small-title {
+    letter-spacing: 3px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.hero h1 span {
+    color: #ffcc00;
+}
+
+.hero-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* ========== MENU SECTION ========== */
+.menu-section {
+    padding: 60px 8%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title p {
+    color: #d62828;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.section-title h2 {
+    font-size: 32px;
+    margin: 10px 0;
+}
+
+.food-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+}
+
+/* CARD STYLE */
+.food-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 300px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.food-card:hover {
+    transform: translateY(-5px);
+}
+
+.food-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.food-info {
+    padding: 15px;
+}
+
+.food-info h3 {
+    margin-bottom: 8px;
+    color: #d62828;
+}
+
+.food-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.food-bottom strong {
+    font-size: 18px;
+    color: #333;
+}
+
+/* LIST STYLE FOR BOGO + PIZZAS */
+#bogo div, #pizzas div , #specialpizzas div, #train div, #fries div{
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+#bogo button, #pizzas button , #specialpizzas button, #train button, #fries button{
+    background: #ffcc00;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 8px;
+}
+
+#bogo button:hover, #pizzas button:hover , #specialpizzas button:hover, #train button:hover, #fries button:hover{
+    background: #e6b800;
+}
+
+/* ========== ABOUT ========== */
+.about-section {
+    display: flex;
+    gap: 40px;
+    padding: 60px 8%;
+    align-items: center;
+    background: #fff;
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.about-content .small-title {
+    color: #d62828;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/* ========== CONTACT ========== */
+.contact-section {
+    padding: 60px 8%;
+    background: #fff8f0;
+}
+
+.contact-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.contact-box {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    width: 280px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* ========== FOOTER ========== */
+footer {
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+footer h3 {
+    margin-bottom: 10px;
+    color: #ffcc00;
+}
+
+.copyright {
+    font-size: 14px;
+    margin-top: 10px;
+    color: #aaa;
+}
+
+/* ========== RESPONSIVE ========== */
+@media(max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .hero h1 {
+        font-size: 32px;
+    }
+    .about-section {
+        flex-direction: column;
+    }
+    .food-card {
+        width: 100%;
+    }
+}
+
+#deals > div, #superdeals > div {
+  flex: 0 0 260px;        /* har card 260px ka fix */
+  scroll-snap-align: start;
+}
+
+
+
+
+.food-card {
+  width: 260px !important;
+  min-width: 260px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.food-info {
+  flex-grow: 1; /* ye space lega */
+}
+
+.food-bottom {
+  margin-top: auto !important; /* BUTTON KO NEECY */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.food-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+

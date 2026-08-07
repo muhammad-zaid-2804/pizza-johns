@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Orders - Pizza John's </title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}
+    body{font-family:'Poppins',sans-serif;background:#f7f7f7;margin:0;padding:0}
+    .navbar{background:#212121;color:#fff;padding:15px 30px;display:flex;justify-content:space-between;align-items:center}
+    .logo{font-size:22px;font-weight:700}.logo span{color:#D32F2F}
+    .btn-home{border:1px solid #fff;color:#fff;padding:8px 15px;border-radius:8px;text-decoration:none;font-weight:600}
+    .container{max-width:850px;margin:30px auto;padding:20px}
+    .track-box{background:#fff;padding:30px;border-radius:12px;text-align:center;margin-bottom:25px;box-shadow:0 4px 15px rgba(0,0,0,0.08)}
+    .track-box h2{color:#D32F2F;margin:0 0 8px 0}
+    .track-box input{padding:12px 15px;width:300px;border:2px solid #ddd;border-radius:8px;margin-right:10px}
+    .track-box button{padding:12px 25px;background:#D32F2F;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700}
+    
+    .order-card{background:#fff;padding:20px;border-radius:12px;margin-bottom:20px;border-left:6px solid #FF9800;box-shadow:0 3px 10px rgba(0,0,0,0.08)}
+    .order-card.status-processing{border-color:#2196F3} 
+    .order-card.status-onway{border-color:#4CAF50} 
+    .order-card.status-ready{border-color:#4CAF50} 
+    .order-card.status-delivered{border-color:#9E9E9E} 
+    .order-card.status-cancelled{border-color:#E53935;opacity:0.7}
+    .order-card.status-pending{border-color:#FF9800}
+
+    .order-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
+    .order-id{font-size:18px;font-weight:700}
+    .status-badge{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;text-transform:uppercase}
+    .pending{background:#FFF3E0;color:#FF9800}
+    .processing{background:#E3F2FD;color:#2196F3}
+    .onway{background:#E8F5E9;color:#4CAF50}
+    .ready{background:#E8F5E9;color:#4CAF50}
+    .delivered{background:#F5F5F5;color:#555}
+    .cancelled{background:#FFEBEE;color:#E53935}
+
+    .order-details{display:grid;grid-template-columns:repeat(2, 1fr);gap:15px;margin:15px 0;font-size:14px}
+    .detail label{display:block;font-weight:600;color:#888;font-size:12px}
+    .status-message{text-align:center;padding:12px;background:#f9f9f9;border-radius:8px;font-weight:600;margin-top:15px}
+    .status-message.cancelled-msg{background:#FFEBEE;color:#E53935}
+    .empty{text-align:center;padding:50px 20px;background:#fff;border-radius:12px}
+    .error-box{background:#ffebee;color:#c62828;padding:15px;border-radius:8px;margin:10px 0}
+    .loader{text-align:center;padding:20px;font-weight:600}
+  </style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">🍔 Pizza John's  <span>My Orders</span></div>
+  <a href="index.html" class="btn-home">← Back to Menu</a>
+</header>
+
+<div class="container">
+  <div class="track-box">
+    <h2>Track Your Order</h2>
+    <p>Enter the phone number you used while placing order</p>
+    <input type="tel" id="searchContact" placeholder="03xx-xxxxxxx">
+    <button id="trackBtn">Track Order</button>
+  </div>
+
+  <div id="ordersList"></div>
+</div>
+
+<script type="module">
+  // 1. FIREBASE IMPORTS
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, query, where, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  // 2. APNA FIREBASE CONFIG
+  const firebaseConfig = {
+    apiKey: "AIzaSyAQD6oRdYoBQNVGVpoVZDzGFRW0Y_TNShU",
+    authDomain: "pizza-john-project.firebaseapp.com",
+    projectId: "pizza-john-project",
+    storageBucket: "pizza-john-project.firebasestorage.app",
+    messagingSenderId: "180679233905",
+    appId: "1:180679233905:web:63a59a4022ee11410ea6d0",
+    measurementId: "G-SF37QWK20B"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // NEW: Flag to show loading only first time
+  let firstLoad = true;
+
+  window.onload = () => {
+    const lastContact = localStorage.getItem('lastCustomerContact');
+    if(lastContact){
+      document.getElementById('searchContact').value = lastContact;
+      loadMyOrders();
+    }
+  }
+
+  function getStatusText(status){
+    status = String(status || '').toLowerCase();
+    if(status == 'pending') return "Pending";
+    if(status == 'processing') return "Processing";
+    if(status == 'onway') return "On The Way";
+    if(status == 'ready') return "Order Ready";
+    if(status == 'delivered') return "Delivered";
+    if(status == 'cancelled') return "Cancelled ❌";
+    return "Pending";
+  }
+
+  function getStatusMessage(status){
+    status = String(status || '').toLowerCase();
+    if(status == 'pending') return "⏳ Your order is waiting for confirmation.";
+    if(status == 'processing') return "👨‍🍳 We are preparing your delicious food.";
+    if(status == 'onway') return "🚚 Rider is on the way to deliver your order.";
+    if(status == 'ready') return "✅ Your order is ready! Please collect it.";
+    if(status == 'delivered') return "✅ Order Delivered. Thank you!";
+    if(status == 'cancelled') return "❌ This order was cancelled by Admin.";
+    return "⏳ Waiting...";
+  }
+
+  // 3. FIREBASE SE LOAD
+  async function loadMyOrders(){
+    const container = document.getElementById('ordersList');
+    
+    // Show loader only first time
+    if(firstLoad){
+      container.innerHTML = `<div class="loader">Loading orders...</div>`;
+    }
+    
+    try {
+      const contact = document.getElementById('searchContact').value.trim();
+      if(!contact){
+        alert("Please enter your phone number");
+        return;
+      }
+      
+      localStorage.setItem('lastCustomerContact', contact);
+
+      const q = query(
+        collection(db, "orders"), 
+        where("contact", "==", contact),
+        orderBy("time", "desc")
+      );
+      
+      const querySnapshot = await getDocs(q);
+      
+      if(querySnapshot.empty){
+        container.innerHTML = `<div class="empty"><h2>No Orders Found</h2><p>Place a new order to see it here</p></div>`;
+        firstLoad = false;
+        return;
+      }
+      
+      container.innerHTML = "";
+      querySnapshot.forEach((doc) => {
+        const order = doc.data();
+        const orderId = doc.id.slice(-6);
+        const status = getStatusText(order.status);
+        const msgClass = order.status == 'cancelled' ? 'cancelled-msg' : '';
+        
+        // items ko group karna
+        let itemsHtml = 'N/A';
+        if(order.items && order.items.length > 0){
+          let grouped = {};
+          order.items.forEach(item => {
+            grouped[item.name] = (grouped[item.name] || 0) + (item.qty || 1)
+          })
+          itemsHtml = Object.keys(grouped).map(name => `${name} x ${grouped[name]}`).join('<br>')
+        }
+
+        // Time ko theek karna - Timestamp ya String dono handle hoga
+        const orderTime = order.time?.toDate ? order.time.toDate().toLocaleString() : order.time || 'N/A';
+
+        container.innerHTML += `
+          <div class="order-card status-${order.status}">
+            <div class="order-header">
+              <div class="order-id">Order #${orderId}</div>
+              <div class="status-badge ${order.status}">${status}</div>
+            </div>
+            <div class="order-details">
+              <div class="detail"><label>Customer Name</label>${order.name || 'N/A'}</div>
+              <div class="detail"><label>Order Type</label>${order.type || 'N/A'}</div>
+              <div class="detail"><label>Items</label>${itemsHtml}</div>
+              <div class="detail"><label>Total Amount</label>Rs. ${order.total || 0}</div>
+              <div class="detail"><label>Delivery Address</label>${order.location || 'N/A'}</div>
+              <div class="detail"><label>Order Time</label>${orderTime}</div>
+            </div>
+            <div class="status-message ${msgClass}">${getStatusMessage(order.status)}</div>
+          </div>
+        `;
+      });
+
+      firstLoad = false; // Turn off loading after first load
+
+    } catch(e) {
+      console.error("ERROR:", e);
+      container.innerHTML = `<div class="error-box"><b>Error loading orders:</b> ${e.message}</div>`;
+      firstLoad = false;
+    }
+  }
+
+  document.getElementById('trackBtn').addEventListener('click', () => {
+    firstLoad = true; // Reset flag when user clicks manually
+    loadMyOrders();
+  });
+
+  // Auto refresh har 5 sec - No loading flicker now
+  setInterval(() => {
+    if(document.getElementById('searchContact').value.trim()){
+      loadMyOrders();
+    }
+  }, 5000);
+</script>
+
+</body>
+</html>
