@@ -164,7 +164,7 @@
 
 <!-- Right Side Drawer -->
 <div id="sideMenu" class="side-menu">
-  <a href="#" class="closeBtn">&times;</a>
+
   <h3>Our Menu</h3>
   <a href="#deals">Deals</a>
   <a href="#superdeals">Super Deals</a>
@@ -639,7 +639,6 @@ loadSections();
 
 const menuBtn = document.getElementById('menuBtn');
 const sideMenu = document.getElementById('sideMenu');
-const closeBtn = document.querySelector('.closeBtn');
 const overlay = document.getElementById('overlay');
 const menuLinks = document.querySelectorAll('#sideMenu a[href^="#"]'); // NEW LINE 1
 
@@ -655,11 +654,7 @@ menuBtn.onclick = function(e) {
   overlay.style.display = "block";
 }
 
-// Menu close
-closeBtn.onclick = function(e) { // e add kiya
-  e.preventDefault(); // NEW - upar jump rokne ke liye
-  closeMenu(); // UPDATE
-}
+
 
 // Overlay click pe bhi band ho jaye
 overlay.onclick = function() {
