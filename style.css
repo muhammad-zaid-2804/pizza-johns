@@ -341,3 +341,59 @@ footer h3 {
 }
 
 
+
+
+.side-menu {
+  height: 100%;
+  width: 0; /* shuru me band rahega */
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  right: 0; /* right side se aayega */
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.3s;
+  padding-top: 60px;
+}
+
+.side-menu a {
+  padding: 12px 20px;
+  text-decoration: none;
+  font-size: 16px;
+  color: #fff;
+  display: block;
+  transition: 0.2s;
+}
+.side-menu a:hover {
+  background: #e63946; /* red hover */
+}
+
+.side-menu .closeBtn {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  font-size: 30px;
+  color: white;
+}
+
+.side-menu h3 {
+  color: #e63946;
+  padding: 0 20px;
+  margin-bottom: 10px;
+}
+
+/* Dark overlay */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+}
+
+
+
+
