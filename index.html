@@ -157,7 +157,27 @@
 
   <nav>
   <a href="#">Home</a>
-  <a href="#menu">Menu</a>
+  
+
+<!-- Menu Button -->
+<a href="#" id="menuBtn">Menu</a>
+
+<!-- Right Side Drawer -->
+<div id="sideMenu" class="side-menu">
+  <a href="#" class="closeBtn">&times;</a>
+  <h3>Our Menu</h3>
+  <a href="#deals">Deals</a>
+  <a href="#superdeals">Super Deals</a>
+  <a href="#bogo">Burger, Paratha, Rolls & Shawarma</a>
+  <a href="#pizzas">Pizza</a>
+  <a href="#specialpizzas">Special Crust Pizza</a>
+  <a href="#train">Train Pizza Special Offer</a>
+  <a href="#fries">Chicken & Fries</a>
+</div>
+
+<!-- Dark background when menu opens -->
+<div id="overlay" class="overlay"></div>
+
   <a href="myorders.html">My Orders</a>
   <a href="#contact">Contact</a>
 </nav>
@@ -347,7 +367,7 @@
 
                 <p>
                     Monday - Sunday<br>
-                    10:00 AM - 12:00 AM
+                    10:30 PM - 12:30 AM
                 </p>
 
             </div>
@@ -615,6 +635,59 @@ function loadSections() {
 }
 
 loadSections();
+
+
+const menuBtn = document.getElementById('menuBtn');
+const sideMenu = document.getElementById('sideMenu');
+const closeBtn = document.querySelector('.closeBtn');
+const overlay = document.getElementById('overlay');
+const menuLinks = document.querySelectorAll('#sideMenu a[href^="#"]'); // NEW LINE 1
+
+function closeMenu() { // NEW FUNCTION
+  sideMenu.style.width = "0";
+  overlay.style.display = "none";
+}
+
+// Menu open
+menuBtn.onclick = function(e) {
+  e.preventDefault();
+  sideMenu.style.width = "280px";
+  overlay.style.display = "block";
+}
+
+// Menu close
+closeBtn.onclick = function(e) { // e add kiya
+  e.preventDefault(); // NEW - upar jump rokne ke liye
+  closeMenu(); // UPDATE
+}
+
+// Overlay click pe bhi band ho jaye
+overlay.onclick = function() {
+  closeMenu(); // UPDATE
+}
+
+// NEW CODE - Category click pe menu band + smooth scroll
+menuLinks.forEach(link => {
+  link.onclick = function(e) {
+    e.preventDefault();
+    const targetId = this.getAttribute('href');
+    const targetSection = document.querySelector(targetId);
+    
+    if(targetSection) {
+      const headerOffset = 300; // header ki height
+      const elementPosition = targetSection.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+    
+    closeMenu();
+  }
+});
+
 </script>
 
 </body>
